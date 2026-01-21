@@ -47,7 +47,7 @@ print("ii) Functional Recursion")
 def sum_till_n_(n: int):
     if n == 0:
         return 0
-    return n + sum_till_n_(n - 1)  # 5 + sum_(4) [5 + 4 + sum_(3) [5 + 4 + 3 + sum_(2) [5 + 4 + 3 + 2 + sum_(1) [5 + 4 + 3 + 2 + 1 + sum_(0) [5 + 4 + 3 + 2 + 1 + 0{base condition make the function ot return.} ] ] ] ] ]
+    return n + sum_till_n_(n - 1)  # 5 + sum_(4) [5 + 4 + sum_(3) [5 + 4 + 3 + sum_(2) [5 + 4 + 3 + 2 + sum_(1) [5 + 4 + 3 + 2 + 1 + sum_(0) [5 + 4 + 3 + 2 + 1 + 0{base condition make the function to return 0.} ] ] ] ] ]
 
 print(sum_till_n_(n=N))
 
