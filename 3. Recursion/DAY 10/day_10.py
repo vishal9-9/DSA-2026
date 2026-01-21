@@ -63,3 +63,18 @@ def factorial(n: int):
     return n * factorial(n - 1)
 
 print(factorial(N))
+
+
+print()
+print("Reverse Array Using Recursion")
+
+array = [9,8,7,6,5,4,3,2,1]
+
+def reverse_array(array: list, l: int, r: int):
+    if l >= r:
+        return
+    array[l], array[r] = array[r], array[l]
+    reverse_array(array=array, l=l+1, r=r-1)
+
+reverse_array(array=array, l=0, r=len(array)-1)
+print(array)
