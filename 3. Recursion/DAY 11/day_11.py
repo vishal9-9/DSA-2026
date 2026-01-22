@@ -18,7 +18,7 @@ print("Print Fibonacci Series up to Nth term")
 N = 10
 
 print(0, 1, end=" ")
-def print_fibbonacci_till_n(n: int, first_: int, second_: int, current_iteration: 1):
+def print_fibbonacci_till_n(n: int, first_: int, second_: int, current_iteration: int):
     if current_iteration == N:
         print()
         return 
