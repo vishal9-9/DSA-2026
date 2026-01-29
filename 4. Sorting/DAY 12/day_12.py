@@ -55,6 +55,9 @@ print("Insertion Sort")
 # Pass 4 => we comapare 20 with 52 swap, comapre 20 with 46 swap, compare 20 with 24 swap, compare 20 with 13 no swap stop. 4th...
 # Pass 5 => we compare everything to 9 and it comes and index 0 and everything is shiifted by 1 and array becomes sorted. 5th...
 
+# Worst case Time Complexity O(n^2).
+# Best Case O(n) for already sorted array as only outer for loop runs and it never goes inside while loop.
+
 for i in range(0, len(unsorted_array)):
     j = i
     while j > 0 and unsorted_array[j - 1] > unsorted_array[j]:
