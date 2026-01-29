@@ -56,8 +56,12 @@ print("Insertion Sort")
 # Pass 5 => we compare everything to 9 and it comes and index 0 and everything is shiifted by 1 and array becomes sorted. 5th...
 
 for i in range(0, len(unsorted_array)):
-    for j in range(i, 0, -1):
-        if unsorted_array[j - 1] > unsorted_array[j]:
-            unsorted_array[j - 1], unsorted_array[j] = unsorted_array[j], unsorted_array[j - 1]
+    j = i
+    while j > 0 and unsorted_array[j - 1] > unsorted_array[j]:
+        unsorted_array[j - 1], unsorted_array[j] = (
+            unsorted_array[j],
+            unsorted_array[j - 1],
+        )
+        j -= 1
 
 print(unsorted_array)
