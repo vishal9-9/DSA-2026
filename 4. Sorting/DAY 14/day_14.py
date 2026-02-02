@@ -37,7 +37,7 @@ def insertion_sort(array: list, index: int):
         return
 
     index_copy = index + 0
-    
+
     while index > 0 and array[index] <= array[index - 1]:
         array[index], array[index - 1] = array[index - 1], array[index]
         index -= 1
@@ -46,4 +46,42 @@ def insertion_sort(array: list, index: int):
 
 
 insertion_sort(array=unsorted_array, index=1)
+print(unsorted_array)
+
+
+unsorted_array = [13, 46, 24, 52, 20, 9]
+print()
+print("Quick Sort")
+
+
+def sort_(array: list, low: int, high: int) -> int:
+    pivot = low
+    left_pointer = low
+    right_pointer = high
+
+    while left_pointer < right_pointer:
+        while left_pointer <= right_pointer and array[left_pointer] <= array[pivot]:
+            left_pointer += 1
+        while right_pointer >= left_pointer and array[right_pointer] >= array[pivot]:
+            right_pointer -= 1
+        if left_pointer < right_pointer:
+            array[pivot], array[right_pointer] = (
+                array[right_pointer],
+                array[pivot],
+            )
+
+    return right_pointer
+
+
+def qucik_sort(array: list, low: int, high: int):
+
+    if high <= low:
+        return
+
+    partition = sort_(array=array, low=low, high=high)
+    qucik_sort(array=array, low=low, high=partition)
+    qucik_sort(array=array, low=partition + 1, high=high)
+
+
+qucik_sort(array=unsorted_array, low=0, high=len(unsorted_array) - 1)
 print(unsorted_array)
