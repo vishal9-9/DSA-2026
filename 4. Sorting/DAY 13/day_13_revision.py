@@ -4,7 +4,7 @@ print("Merge Sort")
 
 # Mege sort uses Divide & Conquer Technique.
 # array = [3,2,1]
-# So we start by divison (start_arra_index + end_array_index) // 2
+# So we start by divison (start_array_index + end_array_index) // 2
 # 1st Iteration it will be [3,2] & other [1] as we will be using recursion and condition of left is placed first so it will process whole left side first.
 # 2nd Iteration [3], [2] this is the base condition for recusrion (start_index <= end_index) once base condition hits then we start merge.
 # For merging we will place 2 pointers on 1st array start(start index) and 2nd array start(middle index + 1), we use while loop and start comparing element at both index and add it to a temp array and increase the ponter of element which was small so here temp = [2] and as right pointer cannot move forward as only 1 element(right pointer <= end_index).
