@@ -65,10 +65,15 @@ def sort_(array: list, low: int, high: int) -> int:
         while right_pointer >= left_pointer and array[right_pointer] >= array[pivot]:
             right_pointer -= 1
         if left_pointer < right_pointer:
-            array[pivot], array[right_pointer] = (
+            array[left_pointer], array[right_pointer] = (
                 array[right_pointer],
-                array[pivot],
+                array[left_pointer],
             )
+            break
+        array[pivot], array[right_pointer] = (
+            array[right_pointer],
+            array[pivot],
+        )
 
     return right_pointer
 
@@ -79,7 +84,7 @@ def qucik_sort(array: list, low: int, high: int):
         return
 
     partition = sort_(array=array, low=low, high=high)
-    qucik_sort(array=array, low=low, high=partition)
+    qucik_sort(array=array, low=low, high=partition - 1)
     qucik_sort(array=array, low=partition + 1, high=high)
 
 
