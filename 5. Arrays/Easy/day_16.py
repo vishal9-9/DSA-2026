@@ -69,3 +69,26 @@ def solution(arr: list):
 
 
 print(solution(arr=array))
+
+array = [1, 2, 0, 1, 0, 4, 0]
+
+print()
+print("Reverse a Array In a Range")
+
+
+def solution(arr: list, start: int, end: int):
+    if start < 0 or end >= len(arr) or start >= end:
+        return arr
+
+    left_pointer = start
+    right_pointer = end
+
+    while left_pointer < right_pointer:
+        arr[left_pointer], arr[right_pointer] = arr[right_pointer], arr[left_pointer]
+        left_pointer += 1
+        right_pointer -= 1
+
+    return arr
+
+
+print(solution(arr=array, start=1, end=5))
