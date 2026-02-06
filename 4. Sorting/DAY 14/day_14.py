@@ -55,25 +55,31 @@ print("Quick Sort")
 
 
 def sort_(array: list, low: int, high: int) -> int:
-    pivot = low
-    left_pointer = low
-    right_pointer = high
+    pivot_value = array[low]  # Store pivot value
+    left_pointer = low + 1  # Start just after pivot
+    right_pointer = high  # Start from end
 
-    while left_pointer < right_pointer:
-        while left_pointer <= right_pointer and array[left_pointer] <= array[pivot]:
+    while left_pointer <= right_pointer:
+
+        # Move left_pointer until an element > pivot is found
+        while left_pointer <= high and array[left_pointer] <= pivot_value:
             left_pointer += 1
-        while right_pointer >= left_pointer and array[right_pointer] >= array[pivot]:
+
+        # Move right_pointer until an element <= pivot is found
+        while array[right_pointer] > pivot_value:
             right_pointer -= 1
+
+        # If pointers haven't crossed, swap misplaced elements
         if left_pointer < right_pointer:
             array[left_pointer], array[right_pointer] = (
                 array[right_pointer],
                 array[left_pointer],
             )
-            break
-        array[pivot], array[right_pointer] = (
-            array[right_pointer],
-            array[pivot],
-        )
+        else:
+            break  # Pointers crossed → partitioning complete
+
+    # Place pivot in its correct sorted position
+    array[low], array[right_pointer] = array[right_pointer], array[low]
 
     return right_pointer
 
