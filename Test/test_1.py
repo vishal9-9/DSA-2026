@@ -30,8 +30,13 @@ Instructions:
 #   ****
 def pattern_right_triangle(n: int) -> None:
     """Print a right-angled triangle of stars."""
-    # YOUR CODE HERE
-    pass
+    for i in range(0, n):
+        for j in range(0, i + 1):
+            print("*", end="")
+        print()
+
+
+pattern_right_triangle(4)
 
 
 # Q2. [Easy] Print an inverted right triangle for n = 4:
@@ -41,8 +46,14 @@ def pattern_right_triangle(n: int) -> None:
 #   *
 def pattern_inverted_triangle(n: int) -> None:
     """Print an inverted right-angled triangle of stars."""
-    # YOUR CODE HERE
-    pass
+    print()
+    for i in range(0, n):
+        for j in range(n - i, 0, -1):
+            print("*", end="")
+        print()
+
+
+pattern_inverted_triangle(4)
 
 
 # Q3. [Medium] Print a pyramid (centred) for n = 4:
@@ -52,15 +63,43 @@ def pattern_inverted_triangle(n: int) -> None:
 #   *******
 def pattern_pyramid(n: int) -> None:
     """Print a centred pyramid of stars."""
-    # YOUR CODE HERE
-    pass
+    print()
+    for i in range(0, n):
+        for j in range(0, n - i):
+            print(" ", end="")
+        for k in range(0, ((2 * i) + 1)):
+            print("*", end="")
+        for j in range(0, n - i):
+            print(" ", end="")
+        print()
+
+
+pattern_pyramid(4)
 
 
 # Q4. [Medium] Print a diamond (pyramid + inverted pyramid) for n = 4.
 def pattern_diamond(n: int) -> None:
     """Print a diamond shape of stars."""
-    # YOUR CODE HERE
-    pass
+    print()
+    for i in range(0, n):
+        for j in range(0, (n - i) - 1):
+            print(" ", end="")
+        for k in range(0, ((2 * i) + 1)):
+            print("*", end="")
+        for j in range(0, (n - i) - 1):
+            print(" ", end="")
+        print()
+    for i in range(n, 0, -1):
+        for j in range(0, n - i):
+            print(" ", end="")
+        for k in range(0, ((2 * i) - 1)):
+            print("*", end="")
+        for j in range(0, n - i):
+            print(" ", end="")
+        print()
+
+
+pattern_diamond(4)
 
 
 # Q5. [Medium] Print the following alphabet triangle for n = 4:
