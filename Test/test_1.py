@@ -418,8 +418,13 @@ find_all_subsequences(arr=[1, 2, 3, 4], index=0, current=[])
 # Q23. [Easy] Selection Sort — sort array in ascending order.
 def selection_sort(arr: list) -> list:
     """Sort arr using Selection Sort (in-place). Return the sorted arr."""
-    # YOUR CODE HERE
-    pass
+    for i in range(0, len(arr)):
+        min_ = i
+        for j in range(i + 1, len(arr)):
+            if arr[min_] > arr[j]:
+                min_ = j
+        arr[min_], arr[i] = arr[i], arr[min_]
+    return arr
 
 
 assert selection_sort([13, 46, 24, 52, 20, 9]) == [9, 13, 20, 24, 46, 52]
@@ -428,10 +433,18 @@ assert selection_sort([13, 46, 24, 52, 20, 9]) == [9, 13, 20, 24, 46, 52]
 # Q24. [Easy] Bubble Sort — sort array in ascending order (with early-exit optimisation).
 def bubble_sort(arr: list) -> list:
     """Sort arr using Bubble Sort with the did_swap optimisation. Return sorted arr."""
-    # YOUR CODE HERE
-    pass
+    for i in range(0, len(arr)):
+        did_swap = False
+        for j in range(0, len(arr) - 1 - i):
+            if arr[j] > arr[j + 1]:
+                did_swap = True
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+        if not did_swap:
+            break
+    return arr
 
 
+print()
 assert bubble_sort([13, 46, 24, 52, 20, 9]) == [9, 13, 20, 24, 46, 52]
 assert bubble_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]  # already sorted — O(n)
 
