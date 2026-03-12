@@ -109,8 +109,13 @@ pattern_diamond(4)
 #   ABCD
 def pattern_alphabet_triangle(n: int) -> None:
     """Print a right-angled triangle using alphabets A, B, C …"""
-    # YOUR CODE HERE
-    pass
+    for i in range(0, 4):
+        for j in range(0, i + 1):
+            print(chr(ord("A") + j), end="")
+        print()
+
+
+pattern_alphabet_triangle(4)
 
 
 # Q6. [Hard] Print hollow rectangle border of stars for n = 4:
@@ -120,8 +125,17 @@ def pattern_alphabet_triangle(n: int) -> None:
 #   ****
 def pattern_hollow_rectangle(n: int) -> None:
     """Print a hollow square/rectangle border of stars."""
-    # YOUR CODE HERE
-    pass
+    print()
+    for i in range(0, n):
+        for j in range(0, n):
+            if i == 0 or j == 0 or i == (n - 1) or j == (n - 1):
+                print("*", end="")
+            else:
+                print(" ", end="")
+        print()
+
+
+pattern_hollow_rectangle(4)
 
 
 # Q7. [Hard] Print spiral/number square for n = 3 (Pattern 22 style):
@@ -132,9 +146,19 @@ def pattern_hollow_rectangle(n: int) -> None:
 #   3 3 3 3 3
 def pattern_number_spiral(n: int) -> None:
     """Print a number spiral where value = n - min(top, bottom, left, right)."""
-    # YOUR CODE HERE
-    pass
+    print()
+    for i in range(0, (2 * n) - 1):
+        for j in range(0, (2 * n) - 1):
+            top = i
+            bottom = ((2 * n) - 1) - i - 1
+            left = j
+            right = ((2 * n) - 1) - j - 1
+            min_ = min(min(top, bottom), min(left, right))
+            print(n - min_, end="")
+        print()
 
+
+pattern_number_spiral(3)
 
 # ─────────────────────────────────────────────
 # SECTION 2: MATHS
@@ -144,8 +168,16 @@ def pattern_number_spiral(n: int) -> None:
 # Q8. [Easy] Count the number of digits in N without using str().
 def count_digits(n: int) -> int:
     """Return the number of digits in n."""
-    # YOUR CODE HERE
-    pass
+    count = 0
+
+    if n == 0:
+        count += 1
+        return count
+
+    while n > 0:
+        count += 1
+        n = n // 10
+    return count
 
 
 assert count_digits(12345678) == 8
@@ -156,8 +188,13 @@ assert count_digits(9) == 1
 # Q9. [Easy] Reverse the digits of N. Return 0 if N = 0.
 def reverse_number(n: int) -> int:
     """Return the digit-reversed integer of n. E.g. 12345 → 54321."""
-    # YOUR CODE HERE
-    pass
+    reverse_number = 0
+    while n > 0:
+        last_digit = n % 10
+        reverse_number = reverse_number * 10 + last_digit
+        n = n // 10
+
+    return reverse_number
 
 
 assert reverse_number(12345) == 54321
@@ -167,8 +204,14 @@ assert reverse_number(100) == 1
 # Q10. [Easy] Check if N is a palindrome number (reads same forward & backward).
 def is_palindrome_number(n: int) -> bool:
     """Return True if n is a palindrome number, False otherwise."""
-    # YOUR CODE HERE
-    pass
+    reverse_number = 0
+    original_number = n
+    while n > 0:
+        last_digit = n % 10
+        reverse_number = reverse_number * 10 + last_digit
+        n = n // 10
+
+    return reverse_number == original_number
 
 
 assert is_palindrome_number(121) == True
@@ -181,8 +224,14 @@ assert is_palindrome_number(123) == False
 #   E.g. 153 = 1³ + 5³ + 3³  → True  |  371 = 3³ + 7³ + 1³ → True
 def is_armstrong(n: int) -> bool:
     """Return True if n is an Armstrong number."""
-    # YOUR CODE HERE
-    pass
+    original_number = n
+    sum_ = 0
+    while n > 0:
+        last_digit = n % 10
+        n = n // 10
+        sum_ += last_digit**3
+
+    return sum_ == original_number
 
 
 assert is_armstrong(153) == True
@@ -193,8 +242,11 @@ assert is_armstrong(10) == False
 # Q12. [Medium] Print all divisors of N in sorted order.
 def print_divisors(n: int) -> list:
     """Return a sorted list of all divisors of n (including 1 and n)."""
-    # YOUR CODE HERE
-    pass
+    divisors = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            divisors.append(i)
+    return divisors
 
 
 assert sorted(print_divisors(36)) == [1, 2, 3, 4, 6, 9, 12, 18, 36]
@@ -204,8 +256,13 @@ assert sorted(print_divisors(7)) == [1, 7]
 # Q13. [Easy] Check if N is prime.
 def is_prime(n: int) -> bool:
     """Return True if n is prime, False otherwise."""
-    # YOUR CODE HERE
-    pass
+    if n <= 1:
+        return False
+
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
 
 
 assert is_prime(17) == True
@@ -216,8 +273,13 @@ assert is_prime(4) == False
 # Q14. [Medium] Find the GCD (Greatest Common Divisor) of two numbers N1 and N2.
 def gcd(n1: int, n2: int) -> int:
     """Return the GCD of n1 and n2."""
-    # YOUR CODE HERE
-    pass
+    min_ = min(n1, n2)
+    gcd_ = 1
+
+    for i in range(1, min_ + 1):
+        if n1 % i == 0 and n2 % i == 0:
+            gcd_ = max(i, gcd_)
+    return gcd_
 
 
 assert gcd(20, 15) == 5
@@ -233,22 +295,36 @@ assert gcd(7, 5) == 1
 # Q15. [Easy] Print numbers from 1 to N using recursion (no loops).
 def print_1_to_n(n: int, current: int = 1) -> None:
     """Recursively print 1, 2, 3, … n (one per line)."""
-    # YOUR CODE HERE
-    pass
+    print(current, end="")
+    if current == n:
+        return
+    print(", ", end="")
+    print_1_to_n(n=n, current=current + 1)
+
+
+print_1_to_n(4, 1)
 
 
 # Q16. [Easy] Print numbers from N to 1 using recursion (no loops).
 def print_n_to_1(n: int) -> None:
     """Recursively print n, n-1, … 1 (one per line)."""
-    # YOUR CODE HERE
-    pass
+    print(n, end="")
+    if n == 1:
+        return
+    print(end=", ")
+    print_n_to_1(n - 1)
+
+
+print()
+print_n_to_1(4)
 
 
 # Q17. [Easy] Compute the sum of first N natural numbers using functional recursion.
 def sum_of_n(n: int) -> int:
     """Return sum 1 + 2 + … + n using recursion."""
-    # YOUR CODE HERE
-    pass
+    if n == 1:
+        return 1
+    return n + sum_of_n(n - 1)
 
 
 assert sum_of_n(5) == 15
@@ -259,8 +335,11 @@ assert sum_of_n(1) == 1
 # Q18. [Easy] Compute factorial of N using recursion.
 def factorial(n: int) -> int:
     """Return n! using recursion. factorial(0) = 1."""
-    # YOUR CODE HERE
-    pass
+    if n == 0:
+        return 1
+    if n == 1:
+        return 1
+    return n * factorial(n - 1)
 
 
 assert factorial(0) == 1
@@ -271,8 +350,10 @@ assert factorial(6) == 720
 # Q19. [Medium] Reverse an array in-place using recursion (two-pointer swap approach).
 def reverse_array(arr: list, l: int, r: int) -> None:
     """Reverse arr in-place between indices l and r (inclusive) using recursion."""
-    # YOUR CODE HERE
-    pass
+    if not l < r:
+        return arr
+    arr[l], arr[r] = arr[r], arr[l]
+    reverse_array(arr=arr, l=l + 1, r=r - 1)
 
 
 arr = [9, 8, 7, 6, 5]
@@ -283,8 +364,11 @@ assert arr == [5, 6, 7, 8, 9]
 # Q20. [Medium] Check if a string is a palindrome using recursion.
 def is_palindrome_string(s: str, l: int, r: int) -> bool:
     """Return True if s[l..r] is a palindrome, using recursion."""
-    # YOUR CODE HERE
-    pass
+    if s[l] != s[r]:
+        return False
+    if not l < r:
+        return True
+    return is_palindrome_string(s=s, l=l + 1, r=r - 1)
 
 
 assert is_palindrome_string("ABCDCBA", 0, 6) == True
@@ -295,8 +379,11 @@ assert is_palindrome_string("HELLO", 0, 4) == False
 # Q21. [Medium] Return the Nth Fibonacci number (0-indexed: fib(0)=0, fib(1)=1).
 def fibonacci(n: int) -> int:
     """Return fib(n) using recursion."""
-    # YOUR CODE HERE
-    pass
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
 
 
 assert fibonacci(0) == 0
@@ -305,15 +392,23 @@ assert fibonacci(10) == 55
 
 
 # Q22. [Hard] Print all subsequences of an array using recursion (print each as a list).
-def find_all_subsequences(arr: list) -> None:
+def find_all_subsequences(arr: list, index: int, current: list) -> None:
     """Print every subsequence of arr (including empty [])."""
+    if not index < len(arr):
+        print(current, end=" ")
+        return
 
-    def helper(index: int, current: list) -> None:
-        # YOUR CODE HERE
-        pass
+    # Take
+    current.append(arr[index])
+    find_all_subsequences(arr=arr, index=index + 1, current=current)
 
-    helper(0, [])
+    # Not Take
+    current.pop()
+    find_all_subsequences(arr=arr, index=index + 1, current=current)
 
+
+print()
+find_all_subsequences(arr=[1, 2, 3, 4], index=0, current=[])
 
 # ─────────────────────────────────────────────
 # SECTION 4: SORTING
