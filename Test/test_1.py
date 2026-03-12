@@ -452,8 +452,12 @@ assert bubble_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]  # already sorted — O(n
 # Q25. [Easy] Insertion Sort — sort array in ascending order.
 def insertion_sort(arr: list) -> list:
     """Sort arr using Insertion Sort. Return sorted arr."""
-    # YOUR CODE HERE
-    pass
+    for i in range(1, len(arr)):
+        j = i
+        while arr[j] < arr[j - 1] and j > 0:
+            arr[j], arr[j - 1] = arr[j - 1], arr[j]
+            j -= 1
+    return arr
 
 
 assert insertion_sort([13, 46, 24, 52, 20, 9]) == [9, 13, 20, 24, 46, 52]
@@ -462,8 +466,38 @@ assert insertion_sort([13, 46, 24, 52, 20, 9]) == [9, 13, 20, 24, 46, 52]
 # Q26. [Medium] Merge Sort — O(n log n) divide-and-conquer sort.
 def merge_sort(arr: list, start: int, end: int) -> None:
     """Sort arr[start..end] in-place using Merge Sort."""
-    # YOUR CODE HERE
-    pass
+    if start >= end:
+        return
+
+    def sort_(arr: list, start: int, mid: int, end: int):
+        temp_ = []
+        left_pointer = start
+        right_pointer = mid + 1
+
+        while left_pointer <= mid and right_pointer <= end:
+            if arr[left_pointer] <= arr[right_pointer]:
+                temp_.append(arr[left_pointer])
+                left_pointer += 1
+            else:
+                temp_.append(arr[right_pointer])
+                right_pointer += 1
+
+        while left_pointer <= mid:
+            temp_.append(arr[left_pointer])
+            left_pointer += 1
+
+        while right_pointer <= end:
+            temp_.append(arr[right_pointer])
+            right_pointer += 1
+
+        for i in range(start, end + 1):
+            arr[i] = temp_[i - start]
+
+    mid = (start + end) // 2
+
+    merge_sort(arr=arr, start=start, end=mid)
+    merge_sort(arr=arr, start=mid + 1, end=end)
+    sort_(arr=arr, start=start, mid=mid, end=end)
 
 
 arr = [13, 46, 24, 52, 20, 9]
