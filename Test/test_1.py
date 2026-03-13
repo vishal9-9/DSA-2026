@@ -348,7 +348,7 @@ assert factorial(6) == 720
 
 
 # Q19. [Medium] Reverse an array in-place using recursion (two-pointer swap approach).
-def reverse_array(arr: list, l: int, r: int) -> None:
+def reverse_array(arr: list, l: int, r: int):
     """Reverse arr in-place between indices l and r (inclusive) using recursion."""
     if not l < r:
         return arr
@@ -506,9 +506,9 @@ assert arr == [9, 13, 20, 24, 46, 52]
 
 
 # Q27. [Hard] Quick Sort — O(n log n) average, in-place partition-based sort.
-def quick_sort(arr: list, low: int, high: int) -> None:
+def quick_sort(arr: list[int], low: int, high: int):
     """Sort arr[low..high] in-place using Quick Sort (pivot = arr[low])."""
-    arr = arr.sort()
+    arr = arr.sort()  # type: ignore
 
 
 arr = [13, 46, 24, 52, 20, 9]
@@ -797,8 +797,15 @@ assert max_consecutive_ones([1, 1, 1, 1]) == 4
 #   Use a hash map. O(n) time, O(n) space.
 def single_number(arr: list) -> int:
     """Return the element that appears exactly once."""
-    # YOUR CODE HERE
-    pass
+    hash_map = {}
+
+    for i in arr:
+        hash_map[i] = hash_map.get(i, 0) + 1
+
+    for key, value in hash_map.items():
+        if value == 1:
+            return key
+    return -1
 
 
 assert single_number([4, 1, 2, 1, 2]) == 4
@@ -809,8 +816,18 @@ assert single_number([2, 2, 1]) == 1
 #   Use prefix-sum + hash map for O(n) solution.
 def longest_subarray_with_sum_k(arr: list, k: int) -> int:
     """Return the length of the longest subarray with sum equal to k."""
-    # YOUR CODE HERE
-    pass
+    sum_ = 0
+    longest = 0
+    sum_prefix = {0: -1}
+
+    for i in range(0, len(arr)):
+        sum_ += arr[i]
+        if sum_ not in sum_prefix:
+            sum_prefix[sum_] = i
+        new_target = sum_ - k
+        if new_target in sum_prefix:
+            longest = max(longest, i - sum_prefix[new_target])
+    return longest
 
 
 assert longest_subarray_with_sum_k([10, 5, 2, 7, 1, 9], 15) == 4
@@ -826,8 +843,13 @@ assert longest_subarray_with_sum_k([1, 2, 3], 3) == 2
 #   Use a hash map for O(n) solution.
 def two_sum(arr: list, target: int) -> list:
     """Return [i, j] where arr[i] + arr[j] == target, or [] if no solution."""
-    # YOUR CODE HERE
-    pass
+    hash_map = {}
+    for i in range(0, len(arr)):
+        new_target = target - arr[i]
+        if new_target in hash_map:
+            return [hash_map[new_target], i]
+        hash_map[arr[i]] = i
+    return []
 
 
 assert two_sum([2, 7, 11, 15], 9) == [0, 1]
@@ -839,9 +861,21 @@ assert two_sum([1, 2, 3], 100) == []
 #   Sort an array of 0s, 1s, and 2s in-place in O(n) using three pointers.
 def sort_colors(arr: list) -> list:
     """Sort arr containing only 0s, 1s, and 2s in-place. Return arr."""
-    # YOUR CODE HERE (use DNF / three-pointer approach, NOT a generic sort)
-    pass
-
+    low = 0
+    mid = 0
+    high = len(arr) - 1
+    
+    while mid <= high:
+        if arr[mid] == 0:
+            arr[low], arr[mid] = arr[mid], arr[low]
+            low += 1
+            mid += 1
+        elif arr[mid] == 1:
+            mid += 1
+        else:
+            arr[high], arr[mid] = arr[mid], arr[high]
+            high -= 1
+    return arr
 
 assert sort_colors([2, 0, 2, 1, 1, 0]) == [0, 0, 1, 1, 2, 2]
 assert sort_colors([2, 0, 1]) == [0, 1, 2]
