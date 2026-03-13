@@ -759,8 +759,12 @@ assert union_sorted_arrays(
 #   where exactly one number is missing. Use the summation formula O(n).
 def missing_number(arr: list) -> int:
     """Return the missing number from 0..n using the summation trick."""
-    # YOUR CODE HERE
-    pass
+    N = len(arr)
+    expected_sum = (N * (N + 1)) // 2
+    sum_ = 0
+    for i in arr:
+        sum_ += i
+    return expected_sum - sum_
 
 
 assert missing_number([0, 1, 2, 4]) == 3
@@ -771,8 +775,17 @@ assert missing_number([1, 2, 3]) == 0
 # Q41. [Easy] Count maximum consecutive 1's in a binary array.
 def max_consecutive_ones(arr: list) -> int:
     """Return the count of the longest streak of 1s in arr."""
-    # YOUR CODE HERE
-    pass
+    max_ = 0
+    current_max = 0
+
+    for i in range(0, len(arr)):
+        if arr[i] == 1:
+            current_max += 1
+        else:
+            max_ = max(current_max, max_)
+            current_max = 0
+        max_ = max(current_max, max_)
+    return max_
 
 
 assert max_consecutive_ones([1, 1, 0, 1, 1, 1]) == 3
