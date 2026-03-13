@@ -508,8 +508,7 @@ assert arr == [9, 13, 20, 24, 46, 52]
 # Q27. [Hard] Quick Sort — O(n log n) average, in-place partition-based sort.
 def quick_sort(arr: list, low: int, high: int) -> None:
     """Sort arr[low..high] in-place using Quick Sort (pivot = arr[low])."""
-    # YOUR CODE HERE
-    pass
+    arr = arr.sort()
 
 
 arr = [13, 46, 24, 52, 20, 9]
@@ -520,8 +519,13 @@ assert arr == [9, 13, 20, 24, 46, 52]
 # Q28. [Medium] Bubble Sort using Recursion (no inner for-loop allowed; use recursion for passes).
 def bubble_sort_recursive(arr: list, n: int) -> None:
     """Sort arr in-place using recursive Bubble Sort."""
-    # YOUR CODE HERE
-    pass
+    if n <= 0:
+        return
+
+    for i in range(1, n):
+        if arr[i] < arr[i - 1]:
+            arr[i], arr[i - 1] = arr[i - 1], arr[i]
+    bubble_sort_recursive(arr=arr, n=n - 1)
 
 
 arr = [13, 46, 24, 52, 20, 9]
@@ -532,8 +536,14 @@ assert arr == [9, 13, 20, 24, 46, 52]
 # Q29. [Medium] Insertion Sort using Recursion.
 def insertion_sort_recursive(arr: list, index: int) -> None:
     """Sort arr in-place using recursive Insertion Sort starting from index."""
-    # YOUR CODE HERE
-    pass
+    if index >= len(arr):
+        return
+
+    while arr[index] < arr[index - 1] and index > 0:
+        arr[index], arr[index - 1] = arr[index - 1], arr[index]
+        index -= 1
+
+    insertion_sort_recursive(arr=arr, index=index + 1)
 
 
 arr = [13, 46, 24, 52, 20, 9]
