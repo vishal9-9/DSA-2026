@@ -559,8 +559,12 @@ assert arr == [9, 13, 20, 24, 46, 52]
 # Q30. [Easy] Find the largest element in the array without using max().
 def find_largest(arr: list) -> int:
     """Return the maximum element in arr."""
-    # YOUR CODE HERE
-    pass
+    max_ = arr[0]
+
+    for i in arr:
+        max_ = max(i, max_)
+
+    return max_
 
 
 assert find_largest([8, 10, 5, 7, 9]) == 10
@@ -571,8 +575,26 @@ assert find_largest([1]) == 1
 #   Return (second_smallest, second_largest). Assume all elements are distinct.
 def second_smallest_and_largest(arr: list) -> tuple:
     """Return (2nd_smallest, 2nd_largest) in a single traversal."""
-    # YOUR CODE HERE
-    pass
+    max_ = float("-inf")
+    max2_ = float("-inf")
+
+    min_ = float("inf")
+    min2_ = float("inf")
+
+    for i in arr:
+        if i > max_:
+            max2_ = max_
+            max_ = i
+        elif max_ > i > max2_:
+            max2_ = i
+
+        if i < min_:
+            min2_ = min_
+            min_ = i
+        elif min_ < i < min2_:
+            min2_ = i
+
+    return (min2_, max2_)
 
 
 assert second_smallest_and_largest([1, 2, 4, 7, 5]) == (2, 5)
@@ -582,8 +604,10 @@ assert second_smallest_and_largest([5, 3, 8, 1, 9]) == (3, 8)
 # Q32. [Easy] Check whether an array is sorted in non-decreasing order.
 def is_sorted(arr: list) -> bool:
     """Return True if arr is sorted in non-decreasing order."""
-    # YOUR CODE HERE
-    pass
+    for i in range(1, len(arr)):
+        if arr[i - 1] > arr[i]:
+            return False
+    return True
 
 
 assert is_sorted([1, 2, 4, 7, 7]) == True
@@ -594,8 +618,16 @@ assert is_sorted([1, 3, 2]) == False
 #   Return the count of unique elements (first k elements should be unique).
 def remove_duplicates(arr: list) -> int:
     """Remove duplicates in-place from sorted arr. Return count of unique elements."""
-    # YOUR CODE HERE
-    pass
+    write = 1
+
+    for i in range(1, len(arr)):
+        if arr[i - 1] != arr[i]:
+            arr[write] = arr[i]
+            write += 1
+
+    for i in range(write, len(arr)):
+        arr[i] = "_"
+    return write
 
 
 arr = [1, 1, 2, 2, 3, 3, 4]
@@ -607,8 +639,12 @@ assert arr[:k] == [1, 2, 3, 4]
 # Q34. [Easy] Left-rotate an array by 1 position.
 def left_rotate_by_one(arr: list) -> list:
     """Left-rotate arr by one position in-place. Return arr."""
-    # YOUR CODE HERE
-    pass
+    temp = arr[0]
+    for i in range(0, len(arr) - 1):
+        arr[i] = arr[i + 1]
+
+    arr[-1] = temp
+    return arr
 
 
 assert left_rotate_by_one([1, 2, 3, 4, 5]) == [2, 3, 4, 5, 1]
@@ -617,8 +653,15 @@ assert left_rotate_by_one([1, 2, 3, 4, 5]) == [2, 3, 4, 5, 1]
 # Q35. [Medium] Left-rotate an array by K positions.
 def left_rotate_by_k(arr: list, k: int) -> list:
     """Left-rotate arr by k positions in-place. Return arr."""
-    # YOUR CODE HERE
-    pass
+    k = k % len(arr)
+
+    temp = arr[0:k]
+    for i in range(k, len(arr)):
+        arr[i - k] = arr[i]
+
+    for i in range(len(arr) - k, len(arr)):
+        arr[i] = temp[i - (len(arr) - k)]
+    return arr
 
 
 assert left_rotate_by_k([1, 2, 3, 4, 5, 6, 7], 3) == [4, 5, 6, 7, 1, 2, 3]
@@ -628,8 +671,18 @@ assert left_rotate_by_k([1, 2, 3], 7) == [2, 3, 1]  # k > len
 # Q36. [Easy] Move all zeros to the end of the array (maintain relative order of non-zeros).
 def move_zeros_to_end(arr: list) -> list:
     """Move all 0s to the end in-place. Return arr."""
-    # YOUR CODE HERE
-    pass
+    write = 0
+    read = 0
+
+    while read < len(arr):
+        if arr[read] != 0:
+            arr[write], arr[read] = arr[read], arr[write]
+            write += 1
+            read += 1
+        else:
+            read += 1
+
+    return arr
 
 
 assert move_zeros_to_end([1, 2, 0, 1, 0, 4, 0]) == [1, 2, 1, 4, 0, 0, 0]
@@ -638,8 +691,18 @@ assert move_zeros_to_end([1, 2, 0, 1, 0, 4, 0]) == [1, 2, 1, 4, 0, 0, 0]
 # Q37. [Easy] Reverse the elements of an array within a given index range [start, end].
 def reverse_in_range(arr: list, start: int, end: int) -> list:
     """Reverse arr[start..end] in-place using two pointers. Return arr."""
-    # YOUR CODE HERE
-    pass
+    l = start
+    r = end
+
+    if not 0 <= start < end < len(arr):
+        return arr
+
+    while l < r:
+        arr[l], arr[r] = arr[r], arr[l]
+        l += 1
+        r -= 1
+
+    return arr
 
 
 assert reverse_in_range([1, 2, 3, 4, 5], 1, 3) == [1, 4, 3, 2, 5]
@@ -648,8 +711,10 @@ assert reverse_in_range([1, 2, 3, 4, 5], 1, 3) == [1, 4, 3, 2, 5]
 # Q38. [Easy] Linear search — return the first index of target, or -1 if not found.
 def linear_search(arr: list, target: int) -> int:
     """Return index of target in arr, or -1 if absent."""
-    # YOUR CODE HERE
-    pass
+    for i in range(0, len(arr)):
+        if arr[i] == target:
+            return i
+    return -1
 
 
 assert linear_search([1, 2, 3, 4, 5], 5) == 4
@@ -659,8 +724,30 @@ assert linear_search([1, 2, 3, 4, 5], 10) == -1
 # Q39. [Medium] Union of two sorted arrays (no duplicates, sorted result).
 def union_sorted_arrays(arr1: list, arr2: list) -> list:
     """Return the union of two sorted arrays using two-pointer technique."""
-    # YOUR CODE HERE
-    pass
+    union = []
+    l = 0
+    r = 0
+
+    while l < len(arr1) and r < len(arr2):
+        if arr1[l] <= arr2[r]:
+            if not union or arr1[l] != union[-1]:
+                union.append(arr1[l])
+            l += 1
+        else:
+            if not union or arr2[r] != union[-1]:
+                union.append(arr2[r])
+            r += 1
+
+    while l < len(arr1):
+        if not union or arr1[l] != union[-1]:
+            union.append(arr1[l])
+        l += 1
+
+    while r < len(arr2):
+        if not union or arr2[r] != union[-1]:
+            union.append(arr2[r])
+        r += 1
+    return union
 
 
 assert union_sorted_arrays(
