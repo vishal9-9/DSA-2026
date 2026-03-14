@@ -864,7 +864,7 @@ def sort_colors(arr: list) -> list:
     low = 0
     mid = 0
     high = len(arr) - 1
-    
+
     while mid <= high:
         if arr[mid] == 0:
             arr[low], arr[mid] = arr[mid], arr[low]
@@ -877,6 +877,7 @@ def sort_colors(arr: list) -> list:
             high -= 1
     return arr
 
+
 assert sort_colors([2, 0, 2, 1, 1, 0]) == [0, 0, 1, 1, 2, 2]
 assert sort_colors([2, 0, 1]) == [0, 1, 2]
 
@@ -884,8 +885,20 @@ assert sort_colors([2, 0, 1]) == [0, 1, 2]
 # Q46. [Medium] Find the majority element (appears > N//2 times) using Moore's Voting Algorithm.
 def majority_element(arr: list) -> int:
     """Return the majority element using Moore's Voting Algorithm."""
-    # YOUR CODE HERE
-    pass
+    current_majority = None
+    count_of_majority = 0
+
+    for i in arr:
+        if count_of_majority == 0:
+            current_majority = i
+            count_of_majority += 1
+        elif i == current_majority:
+            count_of_majority += 1
+        else:
+            count_of_majority -= 1
+
+    if arr.count(current_majority) > len(arr) // 2:
+        return current_majority
 
 
 assert majority_element([7, 0, 0, 1, 7, 7, 2, 7, 7]) == 7
@@ -895,8 +908,15 @@ assert majority_element([3, 3, 4, 2, 3, 3]) == 3
 # Q47. [Medium] Maximum Subarray Sum — Kadane's Algorithm O(n).
 def max_subarray_sum(arr: list) -> int:
     """Return the maximum sum of any contiguous subarray."""
-    # YOUR CODE HERE
-    pass
+    sum_ = 0
+    max_ = float("-inf")
+
+    for i in arr:
+        sum_ += i
+        max_ = max(sum_, max_)
+        if sum_ < 0:
+            sum_ = 0
+    return max_
 
 
 assert max_subarray_sum([2, 3, 5, -2, 7, -4]) == 15
@@ -906,11 +926,27 @@ assert max_subarray_sum([-1, -2, -3]) == -1  # all negatives
 # Q48. [Hard] Maximum Subarray — return (max_sum, start_index, end_index).
 def max_subarray_with_indices(arr: list) -> tuple:
     """Return (max_sum, start, end) for the maximum subarray."""
-    # YOUR CODE HERE
-    pass
+    sum_ = 0
+    max_ = float("-inf")
+
+    current_start = 0
+    max_start = 0
+    max_end = 0
+
+    for index, i in enumerate(arr):
+        sum_ += i
+        if sum_ > max_:
+            max_ = sum_
+            max_start = current_start
+            max_end = index
+        if sum_ < 0:
+            current_start = index + 1
+            sum_ = 0
+    return (max_, max_start, max_end)
 
 
-result = max_subarray_with_indices([2, 3, 5, -2, 7, -4])
+arr = [2, 3, 5, -2, 7, -4]
+result = max_subarray_with_indices(arr=arr)
 assert result[0] == 15  # max sum
 assert arr[result[1] : result[2] + 1] == [2, 3, 5, -2, 7]
 
@@ -920,8 +956,16 @@ assert arr[result[1] : result[2] + 1] == [2, 3, 5, -2, 7]
 #   You must buy before you sell. Return 0 if no profit is possible.
 def max_profit(prices: list) -> int:
     """Return the maximum profit from a single buy-sell transaction."""
-    # YOUR CODE HERE
-    pass
+    max_low = float("+inf")
+    current_profit = 0
+
+    max_profit = 0
+
+    for i in prices:
+        current_profit = i - max_low
+        max_profit = max(max_profit, current_profit)
+        max_low = min(i, max_low)
+    return max_profit
 
 
 assert max_profit([7, 1, 5, 3, 6, 4]) == 5  # buy at 1, sell at 6
