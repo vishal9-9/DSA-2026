@@ -883,7 +883,7 @@ assert sort_colors([2, 0, 1]) == [0, 1, 2]
 
 
 # Q46. [Medium] Find the majority element (appears > N//2 times) using Moore's Voting Algorithm.
-def majority_element(arr: list) -> int:
+def majority_element(arr: list) -> None | int:
     """Return the majority element using Moore's Voting Algorithm."""
     current_majority = None
     count_of_majority = 0
@@ -906,7 +906,7 @@ assert majority_element([3, 3, 4, 2, 3, 3]) == 3
 
 
 # Q47. [Medium] Maximum Subarray Sum — Kadane's Algorithm O(n).
-def max_subarray_sum(arr: list) -> int:
+def max_subarray_sum(arr: list) -> float:
     """Return the maximum sum of any contiguous subarray."""
     sum_ = 0
     max_ = float("-inf")
