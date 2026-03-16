@@ -49,7 +49,27 @@ def solution_2(arr: list[int]):
         if arr[i - 1] < arr[i]:
             breakpoint = i - 1
             break
-    return breakpoint
+    if breakpoint == -1:
+        # Reverse array as arr is last of the permutation so if we reverse it we will reach to first of it.
+        l, r = 0, len(arr) - 1
+        while l < r:
+            arr[l], arr[r] = arr[r], arr[l]
+            l += 1
+            r -= 1
+        return arr
+    else:
+        for i in range(len(arr) - 1, breakpoint, -1):
+            if arr[i] > arr[breakpoint]:
+                arr[i], arr[breakpoint] = arr[breakpoint], arr[i]
+                break
+
+        # then reverse the array to as array was already in increasing order from back & job done
+        l, r = breakpoint + 1, len(arr) - 1
+        while l < r:
+            arr[l], arr[r] = arr[r], arr[l]
+            l += 1
+            r -= 1
+        return arr
 
 
 print(solution_2(arr))
