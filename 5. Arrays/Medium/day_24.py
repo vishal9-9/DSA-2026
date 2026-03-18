@@ -1,10 +1,26 @@
 print("Set Matrix Zero")
 
-matrix = [[1, 1, 1], [1, 0, 1], [1, 1, 1]]
+matrix = [[0, 1, 1], [1, 0, 1], [1, 1, 1]]
 
 
+# Optimal
 def solution_1(arr: list[list[int]]):
-    pass
+    n = len(arr)
+    rows_to_update = [0] * n
+    columns_to_update = [0] * n
+
+    for i in range(0, len(arr)):
+        for j in range(0, len(arr[i])):
+            if arr[i][j] == 0:
+                rows_to_update[i] = 1
+                columns_to_update[j] = 1
+
+    for i in range(0, len(arr)):
+        for j in range(0, len(arr[i])):
+            if rows_to_update[i] or columns_to_update[j]:
+                arr[i][j] = 0
+
+    return arr
 
 
 print(solution_1(arr=matrix))
