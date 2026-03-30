@@ -44,5 +44,17 @@ def solution_1(nums: list[nums]):
 
 print(solution_1(nums))
 
-
+print()
 print("Program to generate Pascal's Triangle")
+
+N = 5
+r = 5
+c = 3
+
+answer = 1
+
+for i in range(1, c + 1):
+    answer = answer * (r - (i - 1))
+    answer = answer / i
+
+print(answer)
