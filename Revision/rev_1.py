@@ -424,14 +424,14 @@ def pattern_19(n: int = 5):
         for l in range(0, i):
             print("*", end="")
         print()
-    for i in range(0, n + 1):
-            for j in range(0, i):
-                print("*", end="")
-            for k in range(0, n - i):
-                print("  ", end="")
-            for l in range(0, i):
-                print("*", end="")
-            print()
+    for i in range(0, n):
+        for j in range(0, i + 1):
+            print("*", end="")
+        for k in range(0, n - i - 1):
+            print("  ", end="")
+        for l in range(0, i + 1):
+            print("*", end="")
+        print()
 
 
 pattern_19()
@@ -447,3 +447,79 @@ pattern_19()
 # ***    ***
 # **      **
 # *        *
+
+
+print()
+
+
+def pattern_20(n: int = 5):
+    for i in range(0, n):
+        for j in range(0, i + 1):
+            print("*", end="")
+        for k in range(0, n - i - 1):
+            print("  ", end="")
+        for l in range(0, i + 1):
+            print("*", end="")
+        print()
+    for i in range(n - 1, 0, -1):
+        for j in range(0, i):
+            print("*", end="")
+        for k in range(0, n - i):
+            print("  ", end="")
+        for l in range(0, i):
+            print("*", end="")
+        print()
+
+
+pattern_20()
+
+# Pattern 20
+# ****
+# *  *
+# *  *
+# ****
+
+
+print()
+
+
+def pattern_21(n: int = 5):
+    for i in range(0, n):
+        for j in range(0, n):
+            if j == 0 or i == 0 or j == n - 1 or i == n - 1:
+                print("*", end="")
+            else:
+                print(" ", end="")
+        print()
+
+
+pattern_21()
+
+
+# Pattern 22
+# 555555555
+# 544444445
+# 543333345
+# 543222345
+# 543212345
+# 543222345
+# 543333345
+# 544444445
+# 555555555
+
+
+print()
+
+
+def pattern_22(n: int = 5):
+    for i in range(0, 2 * n - 1):
+        for j in range(0, 2 * n - 1):
+            top = i
+            left = j
+            bottom = (2 * n) - 1 - i - 1
+            right = (2 * n) - 1 - j - 1
+            print(n - min(min(top, left), min(bottom, right)), end="")
+        print()
+
+
+pattern_22()
